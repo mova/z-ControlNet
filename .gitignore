@@ -1,9 +1,9 @@
 .idea/
-
+zenv
 training/
 lightning_logs/
 image_log/
-
+hfmodel_cache
 *.pth
 *.pt
 *.ckpt

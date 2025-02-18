@@ -6,6 +6,7 @@ from tqdm import tqdm
 
 from ldm.modules.diffusionmodules.util import make_ddim_sampling_parameters, make_ddim_timesteps, noise_like, extract_into_tensor
 
+def_device = torch.device("cuda") if torch.cuda.is_available() else torch.device("cpu")
 
 class DDIMSampler(object):
     def __init__(self, model, schedule="linear", **kwargs):
@@ -15,9 +16,9 @@ class DDIMSampler(object):
         self.schedule = schedule
 
     def register_buffer(self, name, attr):
-        if type(attr) == torch.Tensor:
-            if attr.device != torch.device("cuda"):
-                attr = attr.to(torch.device("cuda"))
+        # if type(attr) == torch.Tensor:
+        #     if attr.device != torch.device("cuda"):
+        #     attr = attr.to(torch.device("cuda"))
         setattr(self, name, attr)
 
     def make_schedule(self, ddim_num_steps, ddim_discretize="uniform", ddim_eta=0., verbose=True):
